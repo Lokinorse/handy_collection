@@ -12,9 +12,9 @@ class GroupIterator {
 }
 
 class HandyCollection {
-    constructor (unique = false){
+    constructor (options){
         this.group = []
-        this.unique = unique
+        this.unique = options.unique
     }
     push(value){
         if(this.unique) {
@@ -29,9 +29,15 @@ class HandyCollection {
     has(value){
         return this.group.includes(value)
     }
-    static create (arr) {
-        const newGroup = new HandyCollection()
-        for (let item of arr) newGroup.push(item)
+    static create (collection, options={unique:false}) {
+        const newGroup = new HandyCollection(options)
+        if(Array.isArray(collection)){
+            for (let item of collection) newGroup.push(item)
+        } else {
+            Object.keys(collection).map(key => {
+                newGroup.push({key: collection[key]})
+            })
+        }
         return newGroup
     }
 
@@ -44,11 +50,3 @@ class HandyCollection {
     };
 }
 
-
-
-const myArr = new HandyCollection()
-myArr.push(1)
-myArr.push(1)
-console.log(myArr)
-
-myArr.map(item => console.log(item))
