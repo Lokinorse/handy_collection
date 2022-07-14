@@ -4,4 +4,8 @@ Methods for both objects and arrays:
 - push
 - delete
 - has 
-- map 
+- map
+- size
+- filter (accepts callback either predicate )
+
+
